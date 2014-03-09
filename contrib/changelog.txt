@@ -1,0 +1,44 @@
+#
+#-----[ 1.1.0 to 1.2.0 ]------------------------------------------
+#
+-Reduced code in auth_db.php
+-Reduced work's time using a control condition in function file
+-Changed global $alert_for_login to $afl for make it more properly
+-Changed code speed: AFL has been accelerated using $db->transaction (open/closed) if many query are coming...
+-Fixed some bugs issue like success login alert while user has selected to "wont receive email"
+-Fixed a notice PHP while row['lang'] is empty php can't locate the lang file (remember: we can't use $user->add_lang() in our Mod)
+-Added some control point if data are missing (mods incompatibility like Prime Login via Email)
+-Added possibility to exclude some group from alert (using $user->data['group_id']) (based on default group)
+-Added possibility to keep trace of login using automatic posting if PM and Email are disable (usefull for private board)
+-Added information alert in ACP if admin choice to enable all feature: "All feature will use many sql query etc..."
+-Added addon for automatic posting, just uncomment required field for $data send trought submit_post() (unless Quick Title Edition: due to complexity of coding i'd pre-integrated it to the code
+-Added more control point in the settings of the acp (using templates condition)
+
+#
+#-----[ 1.2.0 to 1.2.1 ]------------------------------------------
+#
+-Updated UMIL
+-Added a security tag to show you board is secured using this mod (can be deactivated)
+-Fixed a critical bug
+
+#
+#-----[ 1.2.1 to 1.2.2 ]------------------------------------------
+#
+-Updated XML
+-Minor code update
+
+#
+#-----[ 1.2.2 to 1.3.0 ]------------------------------------------
+#
+-Fixed bug in trigger_error preview in ACP
+-Support of LDAP authentication
+-General code review
+-Added small link to (un)install file in ACP
+-Added possibility to choice type of alert in UCP (Email or PM)
+-Added possibility to select groups as founder in ACP
+-Added possibility to choice topic's language
+-Added possibility to add individual users as founder
+-Updated security tag to an dedicated image (PSD included)
+-Removed a PHP notice
+-XHTML error in ACP while no IP was excluded.
+-Difficult level of the XML updated from "Easy" to "Intermediate"

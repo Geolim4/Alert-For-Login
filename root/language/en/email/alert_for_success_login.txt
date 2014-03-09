@@ -1,0 +1,13 @@
+Subject: Successful login to your account on {SITENAME}
+
+Hello {USERNAME},
+
+This email is to inform you that there was a successful login to your account on "{SITENAME}" with the IP {LOG_SUCCESS_IP}.
+
+######More information about this login:######
+IP Detail: {IP_LOCATION}
+HTTP user agent: "{ATTEMPT_BROWSER}"
+Time(local): {LOGGED_IN_TIME}
+###########################################################
+
+{EMAIL_SIG}

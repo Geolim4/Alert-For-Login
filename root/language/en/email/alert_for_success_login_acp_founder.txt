@@ -1,0 +1,13 @@
+Subject: Successful login to your Administration Panel on {SITENAME}
+
+Hello {USERNAME},
+
+This email is to inform you of a successful login to your Administration Panel from the {USERNAME_LOGGED}'s account on {SITENAME} with the IP {LOG_SUCCESS_IP}.
+
+######More information about this login:######
+IP Detail: {IP_LOCATION}
+HTTP user agent: "{ATTEMPT_BROWSER}"
+Time(local): {LOGGED_IN_TIME}
+###########################################################
+
+{EMAIL_SIG}

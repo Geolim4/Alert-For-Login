@@ -1,0 +1,15 @@
+Subject: Connexion reussie à votre Administration sur {SITENAME}
+
+Bonjour {USERNAME},
+
+Cet email est destiné à vous informer qu'une connexion reussie a été effectuée à votre Administration depuis le compte de "{USERNAME_LOGGED}" sur {SITENAME} à partir de l'adresse IP {LOG_SUCCESS_IP}
+
+######Informations supplémentaires sur cette connexion######
+Détails sur l'IP de connexion: {IP_LOCATION}
+L'agent HTTP utilisé était: "{ATTEMPT_BROWSER}"
+Heure(locale): {LOGGED_IN_TIME}
+###########################################################
+
+Si vous souhaitez ne plus recevoir d'alerte par email, vous pouvez modifier le paramètre approprié dans votre panneau d'utilisateur ici: {DEACTIVATE_SETTING}
+
+{EMAIL_SIG}

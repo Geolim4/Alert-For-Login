@@ -1,0 +1,18 @@
+Subject: Connections échouées à votre Administration sur "{SITENAME}"!
+
+Bonjour {USERNAME},
+
+Des connections échouées à votre administration sur "{SITENAME}" ont été enregistrées avec l'IP "{ATTEMPT_IP}" à partir de votre compte.
+
+Nous vous recommandons de vérifier l'intégrité de votre ACP ainsi que de vérifier que votre mot de passe actuel est suffisemment fort!!
+
+######Informations supplémentaires sur ces tentatives######
+Détails sur cette IP: {IP_LOCATION}
+L'agent HTTP utilisé était: "{ATTEMPT_BROWSER}"
+Heure(locale): {LOGGED_IN_TIME}
+{AFL_PWD_ATTEMPTED}
+###########################################################
+
+Si vous souhaitez ne plus recevoir d'alerte par email, vous pouvez modifier le paramètre approprié dans votre panneau d'utilisateur ici: {DEACTIVATE_SETTING}
+
+{EMAIL_SIG}

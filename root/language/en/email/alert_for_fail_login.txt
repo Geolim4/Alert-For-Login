@@ -1,0 +1,20 @@
+Subject: Your account on "{SITENAME}" may be compromised !!!
+
+Hello {USERNAME},
+
+Your account on "{SITENAME}" may be compromised because an user with the IP {ATTEMPT_IP}
+tried to access to your account! Be carefull!
+
+We recommend you change your password or check that your current password is strong!
+If your account has been compromised, you can alert an administrator at the following email: {BOARD_CONTACT}.
+He or she will take appropriate measures to protect your account.
+
+######More information about these attempt:######
+Number of failed logins on your account: {USER_LOGIN_ATTEMPTS}
+IP Details: {IP_LOCATION}
+HTTP user agent: "{ATTEMPT_BROWSER}"
+Time (local): {LOGGED_IN_TIME}
+{AFL_PWD_ATTEMPTED}
+###########################################################
+
+{EMAIL_SIG}

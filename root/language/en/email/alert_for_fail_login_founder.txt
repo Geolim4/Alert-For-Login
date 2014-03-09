@@ -1,0 +1,18 @@
+Subject: The "{ATTEMPT_USERNAME}"'s account on "{SITENAME}" may be compromised !!!
+
+Hello {USERNAME},
+
+The "{ATTEMPT_USERNAME}" account on "{SITENAME}" may be compromised because a user from IP {ATTEMPT_IP}
+tried to access to it.
+
+We recommend you to check this account's integrity and check whether this IP matches with the user's previous IP!!
+You can also contact the user by PM to see the situation with him.
+
+######More information about these attempts:######
+Number of failed logins for this account: {USER_LOGIN_ATTEMPTS}
+IP Details: {IP_LOCATION}
+HTTP user agent used: "{ATTEMPT_BROWSER}"
+Time(local): {LOGGED_IN_TIME}
+###########################################################
+
+{EMAIL_SIG}

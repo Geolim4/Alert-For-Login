@@ -1,0 +1,16 @@
+Subject: Failed login to your Administration Panel at "{SITENAME}"!
+
+Hello {USERNAME},
+
+We've recorded some failed logins from your account to your Administration Panel on "{SITENAME}" with the IP {ATTEMPT_IP}.
+
+We recommend you check your board's integrity and check that your password is strong enough.
+
+######More information about these attempts:######
+IP Details: {IP_LOCATION}
+HTTP user agent: "{ATTEMPT_BROWSER}"
+Time(local): {LOGGED_IN_TIME}
+{AFL_PWD_ATTEMPTED}
+###########################################################
+
+{EMAIL_SIG}

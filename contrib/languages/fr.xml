@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (phpBB version) (French translation by Sylver35)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Alert For Login (French translation]]></title>
+		<title lang="fr"><![CDATA[Alerte de connexions (Traduction Française)]]></title>
+		<description lang="en"><![CDATA[This mod will allow user to receive a mail and/or pm when a success or fail login was make to their account]]></description>
+		<description lang="fr"><![CDATA[Ce mods va autoriser les utilisateurs a recevoir un mail et/ou un mp lors de connexions réussies ou échoués à leur compte.]]></description>
+		<author-group>
+			<author>
+				<realname><![CDATA[Georges.L]]></realname>
+				<username><![CDATA[geolim4]]></username>
+				<homepage><![CDATA[http://geolim4.com]]></homepage>
+				<email><![CDATA[contact@geolim4.com]]></email>
+			</author>
+		</author-group>
+		<mod-version>1.3.0</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>60</time>
+			<target-version>3.0.12</target-version>
+		</installation>
+		<link-group>
+			<link type="parent" href="./../../install_mod.xml" lang="fr">Fichier d'installation</link>
+			<link type="parent" href="./../../install_mod.xml" lang="en">Install file</link>
+			<link type="contrib" href="./../update_1.0.X_to_1.1.0.xml" lang="fr">Mise a jour depuis la version 1.0.0</link>
+			<link type="contrib" href="./../update_1.0.X_to_1.1.0.xml" lang="en">Update from version 1.0.0</link>
+			<link type="contrib" href="./../update_1.1.0_to_1.2.0.xml" lang="fr">Mise a jour depuis la version 1.1.0</link>
+			<link type="contrib" href="./../update_1.1.0_to_1.2.0.xml" lang="en">Update from version 1.1.0</link>	
+			<link type="contrib" href="./../update_1.2.0_to_1.2.1.xml" lang="fr">Mise a jour depuis la version 1.2.0</link>
+			<link type="contrib" href="./../update_1.2.0_to_1.2.1.xml" lang="en">Update from version 1.2.0</link>
+			<link type="contrib" href="./../update_1.2.1_to_1.2.2.xml" lang="fr">Mise a jour depuis la version 1.2.1</link>
+			<link type="contrib" href="./../update_1.2.1_to_1.2.2.xml" lang="en">Update from version 1.2.1</link>
+			<link type="contrib" href="./../update_1.2.2_to_1.3.0.xml" lang="fr">Mise a jour depuis la version 1.2.2</link>
+			<link type="contrib" href="./../update_1.2.2_to_1.3.0.xml" lang="en">Update from version 1.2.2</link>
+		</link-group>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/language/fr/mods/*.*" to="language/fr/mods/*.*"/>
+			<file from="root/language/fr/email/*.*" to="language/fr/email/*.*"/>
+			<file from="root/images/afl/fr/afl.png" to="images/afl/fr/afl.png"/>
+		</copy>
+		<diy-instructions lang="en"><![CDATA[Clear your cache]]></diy-instructions>
+		<diy-instructions lang="fr"><![CDATA[Videz votre cache.]]></diy-instructions>
+	</action-group>
+</mod>

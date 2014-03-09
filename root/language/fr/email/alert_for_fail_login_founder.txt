@@ -1,0 +1,19 @@
+Subject: Le Compte "{ATTEMPT_USERNAME}" sur "{SITENAME}" est peut-être compromis !!!
+
+Bonjour {USERNAME},
+
+Le compte de "{ATTEMPT_USERNAME}" sur "{SITENAME}" est peut-être compromis car un utilisateur avec l'IP "{ATTEMPT_IP}"
+essaye de se connecter à son compte! Soyez prudent!
+
+Nous vous recommandons de vérifier l'intégrité de ce compte ainsi que de vérifier que l'IP de cet utilisateur correspond bien à ses précédentes IP utilisées!!
+Vous pouvez aussi constater la situation par MP avec lui pour plus d'information...
+
+######Informations supplémentaires sur ces tentatives######
+Nombre actuel de tentative de connexions en echecs sur ce compte: {USER_LOGIN_ATTEMPTS}
+Détails sur cette IP: {IP_LOCATION}
+L'agent HTTP utilisé était: "{ATTEMPT_BROWSER}"
+###########################################################
+
+Si vous souhaitez ne plus recevoir d'alerte par email, vous pouvez modifier le paramètre approprié dans votre panneau d'utilisateur ici: {DEACTIVATE_SETTING}
+
+{EMAIL_SIG}

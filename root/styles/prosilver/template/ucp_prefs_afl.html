@@ -1,0 +1,31 @@
+<!-- v1.3.1 00:21 05/1/2013 Geolim4 Exp $ -->
+<h2>{L_AFL_FIELDSET_TITLE}</h2>
+<div class="panel">
+	<div class="inner"><span class="corners-top"><span></span></span>
+	<fieldset>
+	<dl>
+		<dt><label for="afl_type{S_AFL_TYPE}">{L_AFL_ALERT_TYPE}:</label><br />{L_AFL_ALERT_TYPE_EXPLAIN}</dt>
+		<dd>
+			<label for="afl_typepm"><input type="radio" name="afl_type" id="afl_typepm" value="pm"<!-- IF S_AFL_TYPE == 'pm' --> checked="checked"<!-- ENDIF --> /> {L_AFL_ALERT_TYPE_PM}</label>
+			<label for="afl_typemail"><input type="radio" name="afl_type" id="afl_typemail" value="mail"<!-- IF S_AFL_TYPE == 'mail'--> checked="checked"<!-- ENDIF --> /> {L_AFL_ALERT_TYPE_MAIL}</label>
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="afl_fail1">{L_AFL_NOTIFY_LOGIN}:</label><br />{L_AFL_NOTIFY_LOGIN_EXPLAIN}</dt>
+		<dd>
+			<label for="afl_fail1"><input type="radio" name="afl_fail" id="afl_fail1" value="1"<!-- IF S_AFL_FAIL and not S_AFL_SETTINGS --> checked="checked"<!-- ENDIF --><!-- IF S_AFL_SETTINGS --> checked="checked" disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+			<label for="afl_fail0"><input type="radio" name="afl_fail" id="afl_fail0" value="0"<!-- IF not S_AFL_FAIL and not S_AFL_SETTINGS --> checked="checked"<!-- ENDIF --><!-- IF S_AFL_SETTINGS --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+			<!-- IF S_AFL_SETTINGS -->{L_AFL_SETTING_FORCED}<!-- ENDIF -->
+		</dd>
+	</dl>
+	<dl>
+		<dt><label for="afl_success1">{L_AFL_SUCCESS}:</label><br />{AFL_SUCCESS_EXPLAIN}</dt>
+		<dd>
+			<label for="afl_success1"><input type="radio" name="afl_success" id="afl_success1" value="1"<!-- IF S_AFL_SUCCESS and not S_AFL_SETTINGS_SUCC --> checked="checked"<!-- ENDIF --><!-- IF S_AFL_SETTINGS_SUCC --> checked="checked" disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+			<label for="afl_success0"><input type="radio" name="afl_success" id="afl_success0" value="0"<!-- IF not S_AFL_SUCCESS and not S_AFL_SETTINGS_SUCC --> checked="checked"<!-- ENDIF --><!-- IF S_AFL_SETTINGS_SUCC --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+			<!-- IF S_AFL_SETTINGS_SUCC -->{L_AFL_SETTING_FORCED}<!-- ENDIF -->
+		</dd>
+	</dl>
+	</fieldset>
+	<span class="corners-bottom"><span></span></span></div>
+</div>

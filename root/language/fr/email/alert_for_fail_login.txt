@@ -1,0 +1,22 @@
+Subject: Votre compte sur "{SITENAME}" est peut-être compromis !!!
+
+Bonjour {USERNAME},
+
+Votre compte sur "{SITENAME}" est peut-être compromis car un utilisateur avec l'IP "{ATTEMPT_IP}"
+essaye de se connecter à votre compte! Soyez prudent!
+
+Nous vous recommandons de changer votre mot de passe ou de vérifier que votre mot de passe actuel est suffisemment fort!!
+Vous pouvez également alerter un administrateur à l'adresse mail suivante: {BOARD_CONTACT}.
+Il prendras les mesures nécéssaires pour protéger votre compte...
+
+######Informations supplémentaires sur ces tentatives######
+Nombre actuel de tentative de connexions en echecs sur votre compte: {USER_LOGIN_ATTEMPTS}
+Détails sur cette IP: {IP_LOCATION}
+L'agent HTTP utilisé était: "{ATTEMPT_BROWSER}"
+Heure(locale): {LOGGED_IN_TIME}
+{AFL_PWD_ATTEMPTED}
+###########################################################
+
+Si vous souhaitez ne plus recevoir d'alerte par email, vous pouvez modifier le paramètre approprié dans votre panneau d'utilisateur ici: {DEACTIVATE_SETTING}
+
+{EMAIL_SIG}

@@ -1,0 +1,582 @@
+<!-- INCLUDE overall_header.html -->
+<!-- * @version $Id: acp_alert_for_login.html v1.3.1b 00:27 11/07/2013 Geolim4 Exp $ -->
+<a name="maincontent"></a>
+<h1>{TITLE} <img src="{TITLE_IMG}" title="{TITLE}" alt="{TITLE}" style="float:right" /></h1>
+<p>{TITLE_EXPLAIN}</p>
+
+
+
+<!-- IF S_CONFIG -->
+	<!-- IF AFL_MAIL_ALERT and AFL_PM_ALERT and (AFL_FAIL_TOPICS or AFL_SUCCESS_TOPICS) -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{L_AFL_FULL_OPTION}</p>
+	</div>
+	<!-- ENDIF -->
+	<!-- IF S_UP_TO_DATE -->
+	<div class="successbox">
+		<p>{UP_TO_DATE_MSG}</p>
+	</div>
+	<!-- ELSE IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+	<!-- ENDIF -->
+	<!-- IF NO_PM_MAIL -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{L_AFL_CONFIG_ERROR}</p>
+	</div>
+	<!-- ENDIF -->
+	<noscript>
+		<div class="errorbox">
+			<p>{L_AFL_NO_JAVASCRIPT}</p>
+			<p>{ERROR_MSG}</p>
+		</div>
+	</noscript>
+	<fieldset>
+	<dl>
+		<dt><label>{L_AFL_CURRENT_VERSION}:</label></dt>
+		<dd><strong>{CURRENT_VERSION}</strong></dd>
+	</dl>
+	<dl>
+		<dt><label>{L_AFL_LATEST_VERSION}:</label></dt>
+		<dd><strong>{LATEST_VERSION}</strong><!-- IF AFL_UNINSTALL_FILE --><p class="quick">{AFL_UNINSTALL_FILE}</p><!-- ENDIF --></dd>
+	</dl>
+	</fieldset>
+
+	{UPDATE_INSTRUCTIONS}
+	<br />
+<!-- IF AFL_STATS_ENABLED -->
+	<table>
+	<caption>{L_AFL_STAT_TITLE}<br />
+		<span style="font-size:70%;"><i>{L_AFL_STAT_INFO}</i></span><br /><br />
+	</caption>
+		<col class="col1" /><col class="col2" /><col class="col1" /><col class="col2" />
+	<thead>
+	<tr>
+		<th>{L_STATISTIC}</th>
+		<th>{L_VALUE}</th>
+		<th>{L_STATISTIC}</th>
+		<th>{L_VALUE}</th>
+	</tr>
+	</thead>
+		<tbody>
+			<tr>
+				<td>{L_AFL_INSTALL_DATE}: </td>
+				<td><strong><span>{AFL_INSTALL_DATE}</span></strong></td>
+				<td>{L_AFL_STAT_FAIL}: </td>
+				<td><strong><span style="color: #BC2A4D;">{AFL_STATS_FAIL}</span></strong></td>
+			</tr>
+			<tr>
+				<td>{L_AFL_UPDATE_DATE}: </td>
+				<td><strong><span>{AFL_UPDATE_DATE}</span></strong></td>
+				<td>{L_AFL_STAT_FAIL_ACP}: </td>
+				<td><strong><span style="color: #BC2A4D;">{AFL_STATS_FAIL_ACP}</span></strong></td>
+			</tr>
+			<tr>
+				<td>{L_AFL_RATIO_LOGIN}: </td>
+				<td><strong><span<!-- IF AFL_RATIO_LOGIN < 5 --> style="color: #BC2A4D;"<!-- ELSEIF AFL_RATIO_LOGIN >= 5 and AFL_RATIO_LOGIN < 10 --> style="color: #FE760E;"<!-- ELSEIF AFL_RATIO_LOGIN >= 10 --> style="color: #228822;"<!-- ENDIF -->>{AFL_RATIO_LOGIN}</span></strong></td>
+				<td>{L_AFL_STAT_SUCCESS_ACP}: </td>
+				<td><strong><span style="color: #228822;">{AFL_STATS_SUCCESS_ACP}</span></strong></td>
+
+			</tr>
+			<tr>
+				<td>{L_AFL_STAT_PM}: </td>
+				<td><strong><span>{AFL_STATS_PM}</span></strong></td>
+				<td>{L_AFL_STAT_SUCCESS}: </td>
+				<td><strong><span style="color: #228822;">{AFL_STATS_SUCCESS}</span></strong></td>
+			</tr>
+			<tr>
+				<td>{L_AFL_STAT_MAIL}: </td>
+				<td><strong><span>{AFL_STATS_MAIL}</span></strong></td>
+				<td>{AFL_STATS_USERS_F}: </td>
+				<td><strong><span>{S_AFL_STATS_USERS_FAIL}</span></strong></td>
+			</tr>
+			<tr>
+				<td>{L_AFL_STAT_TOPIC}: </td>
+				<td><strong><span>{AFL_STATS_TOPICS}</span></strong></td>
+				<td>{AFL_STATS_USERS_S}: </td>
+				<td><strong><span>{S_AFL_STATS_USERS_SUCCESS}</span></strong></td>
+			</tr>
+		</tbody>
+	</table>
+	<br />
+<!-- ENDIF -->
+	<form id="afl_settings" method="post" action="{U_ACTION}">
+		<fieldset>
+			<legend>{L_GENERAL_SETTINGS}</legend>
+			<dl>
+				<dt><label for="afl_mod_enabled">{L_AFL_MOD_ENABLED}:</label><br />{L_AFL_MOD_ENABLED_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_mod_enabled" value="1"<!-- IF AFL_MOD_ENABLED --> checked="checked" id="afl_mod_enabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_mod_enabled" value="0"<!-- IF not AFL_MOD_ENABLED --> checked="checked" id="afl_mod_enabled"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_mail_alert">{L_AFL_MAIL_ALERT}:</label><br />{L_AFL_MAIL_ALERT_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_mail_alert" value="1"<!-- IF AFL_MAIL_ALERT and not AFL_MAIL_PHPBB --> checked="checked" id="afl_mail_alert"<!-- ENDIF --><!-- IF AFL_MAIL_PHPBB --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_mail_alert" value="0"<!-- IF not AFL_MAIL_ALERT or AFL_MAIL_PHPBB --> checked="checked" id="afl_mail_alert"<!-- ENDIF --><!-- IF AFL_MAIL_PHPBB --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+					<!-- IF AFL_MAIL_PHPBB --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_pm_alert">{L_AFL_PM_ALERT}:</label><br />{L_AFL_PM_ALERT_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_pm_alert" value="1"<!-- IF AFL_PM_ALERT and not AFL_PM_PHPBB --> checked="checked" id="afl_pm_alert"<!-- ENDIF --><!-- IF AFL_PM_PHPBB --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_pm_alert" value="0"<!-- IF not AFL_PM_ALERT or AFL_PM_PHPBB --> checked="checked" id="afl_pm_alert"<!-- ENDIF --><!-- IF AFL_PM_PHPBB --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+				<!-- IF AFL_PM_PHPBB --><br /><span style="color:red">{L_AFL_PM_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<!-- IF AFL_USER_FOUNDER -->
+			<dl>
+				<dt><label for="afl_settings_founder">{L_AFL_SETTINGS_FOUNDER}:</label><br />{L_AFL_SETTINGS_FOUNDER_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_settings_founder" value="1"<!-- IF AFL_SETTINGS_FOUNDER --> checked="checked" id="afl_settings_founder"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_settings_founder" value="0"<!-- IF not AFL_SETTINGS_FOUNDER --> checked="checked" id="afl_settings_founder"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<dl>
+				<dt><label for="afl_hook_login">{L_AFL_HOOK_LOGIN}:</label><br />{L_AFL_HOOK_LOGIN_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_hook_login" value="1"<!-- IF AFL_HOOK_LOGIN --> checked="checked" id="afl_hook_login"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_hook_login" value="0"<!-- IF not AFL_HOOK_LOGIN --> checked="checked" id="afl_hook_login"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_whois_url">{L_AFL_WHOIS_URL}:</label><br />{L_AFL_WHOIS_URL_EXPLAIN}</dt>
+				<dd>
+					<select onchange="document.getElementById('afl_whois_url').value=(this.value);" name="whois_selector" id="whois_selector">{WHOIS_SELECTOR}</select><br />
+					<input class="text medium" type="text" id="afl_whois_url" name="afl_whois_url" value="{AFL_WHOIS_URL}" maxlength="255" />
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_stats_enabled">{L_AFL_STATS_ENABLE}:</label><br />{L_AFL_STATS_ENABLE_EXPLAIN}</dt>
+				<!-- IF NUM_USERS --><dd><br /><span style="color:red">{L_AFL_STAT_MANY_USER}</span></dd><!-- ENDIF -->
+				<dd>
+					<label><input type="radio" class="radio" name="afl_stats_enabled" value="1"<!-- IF AFL_STATS_ENABLED --> checked="checked" id="afl_stats_enabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_stats_enabled" value="0"<!-- IF not AFL_STATS_ENABLED --> checked="checked" id="afl_stats_enabled"<!-- ENDIF --> /> {L_NO}</label><br />
+					<label><input type="checkbox" class="radio" name="afl_stats_reset" id="afl_stats_reset" onclick="return afl_alert('afl_stats_reset', afl_stats_reset)"/> {L_AFL_STATS_RESET}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_founders_exclude">{L_AFL_FOUNDER_EXCLUDE}:</label><br />{L_AFL_FOUNDER_EXCLUDE_EXPLAIN}</dt>
+				<dd><select style="width:250px;" id="afl_founders_exclude" name="afl_founders_exclude[]" multiple="multiple" size="{FOUNDERS_COUNT}">{FOUNDERS_OPTIONS}</select></dd>
+				<dd><a href="javascript:void(0)" onclick="afl_select_multiple('afl_founders_exclude', true);">{L_MARK_ALL}</a>&nbsp;&bull;&nbsp;<a href="javascript:void(0)" onclick="afl_select_multiple('afl_founders_exclude', false);">{L_UNMARK_ALL}</a></dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_groups_exclude">{L_AFL_GROUPS_EXCLUDE}:</label><br />{L_AFL_GROUPS_EXCLUDE_EXPLAIN}</dt>
+				<dd><select style="width:250px;" id="afl_groups_exclude" name="afl_groups_exclude[]" multiple="multiple" size="{GROUPS_COUNT}">{EXC_GROUPS_OPTIONS}</select></dd>
+				<dd><a href="javascript:void(0)" onclick="afl_select_multiple('afl_groups_exclude', true);">{L_MARK_ALL}</a>&nbsp;&bull;&nbsp;<a href="javascript:void(0)" onclick="afl_select_multiple('afl_groups_exclude', false);">{L_UNMARK_ALL}</a></dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_groups_include">{L_AFL_GROUPS_INCLUDE}:</label><br />{L_AFL_GROUPS_INCLUDE_EXPLAIN}</dt>
+				<dd><select style="width:250px;" id="afl_groups_include" name="afl_groups_include[]" multiple="multiple" size="{GROUPS_COUNT}">{INC_GROUPS_OPTIONS}</select></dd>
+				<dd><a href="javascript:void(0)" onclick="afl_select_multiple('afl_groups_include', true);">{L_MARK_ALL}</a>&nbsp;&bull;&nbsp;<a href="javascript:void(0)" onclick="afl_select_multiple('afl_groups_include', false);">{L_UNMARK_ALL}</a></dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_alert_limit">{L_AFL_ALERT_LIMIT}<span style="color: red">**</span>:</label><br />{L_AFL_ALERT_LIMIT_EXPLAIN}</dt>
+				<dd><input class="text small" maxlength="2" size="2" type="text" id="afl_alert_limit" name="afl_alert_limit" value="{AFL_ALERT_LIMIT}" onkeypress="return numbersonly(this, event)"/></dd>
+				<dd></dd>
+			</dl>
+			<fieldset>
+				<legend>{L_AFL_USERS_INDIVIDUAL}</legend>
+
+				<fieldset>
+						<legend>{L_AFL_USERS_INCLUDE}</legend>
+					<dl>
+						<dt><label for="afl_users_include">{L_USERS}:</label><br /><span>{L_AFL_USERS_INCLUDE_EXPLAIN}</span></dt>
+						<dd><textarea name="afl_users_include" cols="40" rows="4" id="afl_users_include"></textarea></dd>
+						<dd>&nbsp;<span>[ <a href="{U_FIND_USERNAME3}" title="{L_FIND_USERNAME}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a> ]&nbsp;[ <a href="javascript:void(0);" title="{L_AFL_INCLUDE_ME}" onclick="sendmy_username();">{L_AFL_INCLUDE_ME}</a> ]&nbsp;({AFL_USERNAME})</span></dd>
+					</dl>
+				</fieldset>
+				<fieldset>
+						<legend>{L_AFL_USERS_UNEXCLUDE}</legend>
+			<!-- IF USERS_OPTIONS -->
+					<dl>
+						<dt><label for="afl_users_unexclude">{L_USERS}:</label><br /><span>{L_AFL_USERS_UNEXCLUDE_EXPLAIN}</span></dt>
+						<dd><select id="afl_users_unexclude" name="afl_users_unexclude[]" multiple="multiple" size="<!-- IF USERS_COUNT <= 10 -->{USERS_COUNT}<!-- ELSE -->10<!-- ENDIF -->" style="width: 50%">{USERS_OPTIONS}</select></dd>
+						<dd><a href="javascript:void(0)" onclick="afl_select_multiple('afl_users_unexclude', true);">{L_MARK_ALL}</a>&nbsp;&bull;&nbsp;<a href="javascript:void(0)" onclick="afl_select_multiple('afl_users_unexclude', false);">{L_UNMARK_ALL}</a></dd>
+					</dl>
+			<!-- ELSE -->
+				<p>{L_AFL_NO_EXCLUDE_USERS}</p>
+			<!-- ENDIF -->
+				</fieldset>
+			</fieldset>
+			<fieldset>
+				<legend>{L_AFL_MANAGE_IP}</legend>
+
+				<fieldset>
+						<legend>{L_AFL_EXCLUSION_IP}</legend>
+					<dl>
+						<dt><label for="afl_exclude_ip">{L_IP}:</label><br /><span>{L_AFL_EXCLUSION_IP_EXPLAIN}</span></dt>
+						<dd><textarea name="afl_exclude_ip" cols="40" rows="4" id="afl_exclude_ip"></textarea></dd>
+						<dd>&nbsp;<span>[ <a href="javascript:void(0);" title="{L_AFL_INCLUDE_IP}" onclick="sendmy_ip();">{L_AFL_INCLUDE_IP}</a> ]&nbsp;({AFL_USER_IP})</span></dd>
+					</dl>
+				</fieldset>
+				<fieldset>
+						<legend>{L_AFL_UNEXCLUSION_IP}</legend>
+			<!-- IF S_EXCLUSION_OPTIONS -->
+					<dl>
+						<dt><label for="afl_unexclude_ip">{L_IP}:</label><br /><span>{L_AFL_UNEXCLUSION_IP_EXPLAIN}</span></dt>
+						<dd><select id="afl_unexclude_ip" name="afl_unexclude_ip[]" multiple="multiple" size="<!-- IF IP_COUNT <= 10 -->{IP_COUNT}<!-- ELSE -->10<!-- ENDIF -->" style="width: 50%">{AFL_EXCLUSION_OPTIONS}</select></dd>
+						<dd><a href="javascript:void(0)" onclick="afl_select_multiple('afl_unexclude_ip', true);">{L_MARK_ALL}</a>&nbsp;&bull;&nbsp;<a href="javascript:void(0)" onclick="afl_select_multiple('afl_unexclude_ip', false);">{L_UNMARK_ALL}</a></dd>
+					</dl>
+			<!-- ELSE -->
+				<p>{L_AFL_NO_EXCLUDE_IP}</p>
+			<!-- ENDIF -->
+				</fieldset>
+			</fieldset>
+			<fieldset>
+				<legend>{L_AFL_PM_SETTINGS}</legend>
+				<dl>
+					<dt><label for="afl_bot_username">{L_AFL_BOT_ID}:</label><br />{L_AFL_BOT_ID_EXPLAIN}</dt>
+					<dd><input class="text medium" type="text" id="afl_bot_username" name="afl_bot_username" value="{AFL_BOT_USERNAME}"<!-- IF AFL_PM_PHPBB or not AFL_PM_ALERT --> disabled="disabled" style="background-color: lightgrey; text-decoration:line-through;"<!-- ENDIF -->/>&nbsp;{AFL_BOT_AVATAR}</dd>
+					<dd><!-- IF AFL_PM_PHPBB or not AFL_PM_ALERT --><br /><span style="color:red">{L_AFL_PM_ERROR}</span><!-- ELSE -->[ <a href="{U_FIND_USERNAME}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a> ]<!-- ENDIF --></dd>
+				</dl>
+				<!-- IF AFL_SHOW_CONFIG_ICONS -->
+				<dl>
+					<dt><label for="afl_pm_icon_id_{AFL_PM_ICON_ID}">{L_AFL_ICON_PM}:</label><br />{L_AFL_ICON_PM_EXPLAIN}</dt>
+					<dd>
+						<label for="afl_pm_icon_id_0"><input type="radio" name="afl_pm_icon_id" id="afl_pm_icon_id_0" value="0"  style="cursor: pointer;"<!-- IF AFL_PM_ICON_ID == 0 --> checked="checked"<!-- ENDIF --><!-- IF AFL_PM_PHPBB or not AFL_PM_ALERT --> disabled="disabled"<!-- ENDIF --> /><!-- IF AFL_SHOW_CONFIG_ICONS -->&nbsp;{L_AFL_ICON_PM_NO}<!-- ENDIF --></label>
+						<!-- BEGIN topic_icon --><label for="afl_pm_icon_id_{topic_icon.ICON_ID}"><input type="radio" name="afl_pm_icon_id" id="afl_pm_icon_id_{topic_icon.ICON_ID}" value="{topic_icon.ICON_ID}" style="cursor: pointer;" {topic_icon.S_ICON_CHECKED}<!-- IF AFL_PM_PHPBB or not AFL_PM_ALERT --> disabled="disabled"<!-- ENDIF --> /><img src="{topic_icon.ICON_IMG}" width="{topic_icon.ICON_WIDTH}" height="{topic_icon.ICON_HEIGHT}" alt="" title="" /></label> <!-- END topic_icon -->
+					</dd>
+					<!-- IF AFL_PM_PHPBB or not AFL_PM_ALERT --><dd><br /><span style="color:red">{L_AFL_PM_ERROR}</span></dd><!-- ENDIF -->
+				</dl>
+				<!-- ENDIF -->
+			</fieldset>
+			<fieldset id="fd_topic_setting"<!-- IF not AFL_FAIL_TOPICS and not AFL_SUCCESS_TOPICS --> style="display: none;"<!-- ENDIF -->>
+				<legend>{L_AFL_TOPIC_SETTINGS}</legend>
+				<dl>
+					<dt><label for="afl_forum_target">{L_AFL_TOPIC_FORUM}:</label><br />{L_AFL_TOPIC_FORUM_EXPLAIN}</dt>
+					<dd>{AFL_FORUM_TARGET}</dd>
+					<dd></dd>
+				</dl>
+				<!-- IF QTE_ADDON -->
+				<dl>
+					<dt><label>{L_QTE_ATTRIBUTE}:</label>
+					<dd>{AFL_ADDON_QTE}</dd>
+				</dl>
+				<!-- ENDIF -->
+				<dl>
+					<dt><label for="afl_poster_username">{L_AFL_POSTER_ID}:</label><br />{L_AFL_POSTER_ID_EXPLAIN}</dt>
+					<dd id="dd_afl_poster_username"<!-- IF AFL_POSTER_OWNER --> style="display: none;"<!-- ENDIF -->><input class="text medium" type="text" id="afl_poster_username" name="afl_poster_username" value="{AFL_POSTER_USERNAME}"/>&nbsp;{AFL_BOT_AVATAR2}</dd>
+					<dd><label><input type="checkbox" class="radio" id="afl_poster_owner" name="afl_poster_owner" value="{AFL_POSTER_OWNER}" onclick="hide_poster_search()"<!-- IF AFL_POSTER_OWNER --> checked="checked"<!-- ENDIF -->/> {L_AFL_POSTER_ID_OWNER}</label><br /><span style="color: red;<!-- IF not AFL_POSTER_OWNER --> display: none;<!-- ENDIF -->" id="afl_span_poster_info">{L_AFL_POSTER_ID_OWNER_WARN}</span></dd>
+					<dd id="dd_afl_poster_link"<!-- IF AFL_POSTER_OWNER --> style="display: none;"<!-- ENDIF -->>[ <a href="{U_FIND_USERNAME2}" onclick="find_username(this.href); return false;">{L_FIND_USERNAME}</a> ]</dd>
+				</dl>
+			<dl>
+				<dt><label for="afl_lock_topic">{L_LOCK_TOPIC}:</label><br />{L_AFL_TOPIC_LOCK_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_lock_topic" value="1"<!-- IF AFL_LOCK_TOPIC --> checked="checked" id="afl_lock_topic"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_lock_topic" value="0"<!-- IF not AFL_LOCK_TOPIC --> checked="checked" id="afl_lock_topic"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<!-- IF AFL_SHOW_CONFIG_ICONS -->
+			<dl>
+				<dt><label for="afl_poster_icon_id{AFL_POSTER_ICON_ID}">{L_AFL_ICON_TOPIC}:</label><br />{L_AFL_ICON_TOPIC_EXPLAIN}</dt>
+				<dd>
+					<label for="afl_poster_icon_id_0"><input type="radio" name="afl_poster_icon_id" id="afl_poster_icon_id_0" value="0" style="cursor: pointer;"<!-- IF AFL_POSTER_ICON_ID == 0 --> checked="checked"<!-- ENDIF --> /><!-- IF AFL_SHOW_CONFIG_ICONS -->&nbsp;{L_AFL_ICON_PM_NO}<!-- ENDIF --></label>
+					<!-- BEGIN topic_icon2 --><label for="afl_poster_icon_id{topic_icon2.ICON_ID}"><input type="radio" name="afl_poster_icon_id" id="afl_poster_icon_id{topic_icon2.ICON_ID}" value="{topic_icon2.ICON_ID}" style="cursor: pointer;" {topic_icon2.S_ICON_CHECKED} /><img src="{topic_icon2.ICON_IMG}" width="{topic_icon2.ICON_WIDTH}" height="{topic_icon2.ICON_HEIGHT}" alt="" title="" /></label> <!-- END topic_icon2 -->
+				</dd>
+			</dl>
+			<!-- ENDIF -->
+			<dl>
+				<dt><label for="afl_language_topic_{AFL_LANGUAGE_TOPIC}">{L_AFL_TOPIC_LANGUAGE}:</label></dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_language_topic" value="board"<!-- IF AFL_LANGUAGE_TOPIC == 'board' --> checked="checked" id="afl_language_topic_board"<!-- ENDIF --> /> {L_AFL_TOPIC_LANGUAGE_BOARD}</label>
+					<label><input type="radio" class="radio" name="afl_language_topic" value="user"<!-- IF AFL_LANGUAGE_TOPIC == 'user'--> checked="checked" id="afl_language_topic_user"<!-- ENDIF --> /> {L_AFL_TOPIC_LANGUAGE_USER}</label>
+				</dd>
+			</dl>
+			</fieldset>
+		</fieldset>
+		<fieldset>
+			<legend>{L_AFL_FAIL_SETTINGS}</legend>
+			<dl>
+				<dt><label for="afl_ucp_fail">{L_AFL_UCP_FAIL}<span style="color: red">**</span>:</label><br />{L_AFL_UCP_FAIL_EXPLAIN}<br />{L_AFL_SETTINGS_CUSTOMIZABLE}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_ucp_fail" value="1"<!-- IF AFL_UCP_FAIL --> checked="checked" id="afl_ucp_fail"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_ucp_fail" value="0"<!-- IF not AFL_UCP_FAIL --> checked="checked" id="afl_ucp_fail"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_fail_topics">{L_AFL_TOPIC_ALERT}:</label><br />{L_AFL_TOPIC_ALERT_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_fail_topics" onclick="afl_topic_alert(1)" value="1"<!-- IF AFL_FAIL_TOPICS --> checked="checked" id="afl_fail_topics"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_fail_topics" onclick="afl_topic_alert(0)" value="0"<!-- IF not AFL_FAIL_TOPICS --> checked="checked" id="afl_fail_topics"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_acp_fail">{L_AFL_ACP_FAIL}<span style="color: red">**</span>:</label><br />{L_AFL_ACP_FAIL_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_acp_fail" value="1"<!-- IF AFL_ACP_FAIL --> checked="checked" id="afl_acp_fail"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_acp_fail" value="0"<!-- IF not AFL_ACP_FAIL --> checked="checked" id="afl_acp_fail"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_alert_founder_ucp">{L_AFL_UCP_FAIL_F}<span style="color: red">**</span>:</label><br />{L_AFL_UCP_FAIL_F_EXPLAIN}<br />{L_AFL_GROUPS_INCLUDED}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_alert_founder_ucp" value="1" onclick="return afl_alert('afl_alert_founder_ucp', afl_alert_founder_ucp)"<!-- IF AFL_ALERT_FOUNDER_UCP and not ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT)) --> checked="checked" id="afl_alert_founder_ucp"<!-- ENDIF --><!-- IF AFL_MAIL_PHPBB and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_alert_founder_ucp" value="0"<!-- IF not AFL_ALERT_FOUNDER_UCP or ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT)) --> checked="checked" id="afl_alert_founder_ucp"<!-- ENDIF --><!-- IF AFL_MAIL_PHPBB and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --><br /><span style="color:red">{L_AFL_PM_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_alert_founder_acp">{L_AFL_ACP_FAIL_F}<span style="color: red">**</span>:</label><br />{L_AFL_ACP_FAIL_F_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_alert_founder_acp" value="1"<!-- IF AFL_ALERT_FOUNDER_ACP and not ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and AFL_PM_PHPBB) --> checked="checked" id="afl_alert_founder_acp"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_alert_founder_acp" value="0"<!-- IF not AFL_ALERT_FOUNDER_ACP or ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and AFL_PM_PHPBB) --> checked="checked" id="afl_alert_founder_acp"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --><br /><span style="color:red">{L_AFL_PM_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_force_alert">{L_AFL_UCP_SETTINGS}<span style="color: red">**</span>:</label><br />{L_AFL_UCP_SETTINGS_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_force_alert" value="1"<!-- IF AFL_FORCE_ALERT and not ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and AFL_PM_PHPBB) --> checked="checked" id="afl_force_alert"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_force_alert" value="0"<!-- IF not AFL_FORCE_ALERT or ((AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and AFL_PM_PHPBB) --> checked="checked" id="afl_force_alert"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label><br />
+					<label><input type="checkbox" class="radio" name="afl_force_all" id="afl_force_all" onclick="return afl_alert('afl_force_all', afl_force_all)"<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_AFL_UCP_FORCE_ALL}</label>
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) and (AFL_PM_PHPBB or not AFL_PM_ALERT) --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_mail_pwd">{L_AFL_MAIL_PWD}<span style="color: red">*</span>:</label><br />{L_AFL_MAIL_PWD_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_mail_pwd" value="1"<!-- IF AFL_MAIL_PWD and not (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_mail_pwd"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_mail_pwd" value="0"<!-- IF not AFL_MAIL_PWD or (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_mail_pwd"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label><br />
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_maxlogin_bypass"><span style="color: red">/!\</span>{L_AFL_MAXLOGIN_BYPASS}<span style="color: red">**</span>:</label><br />{L_AFL_MAXLOGIN_BYPASS_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_maxlogin_bypass" value="1" onclick="afl_login_count.disabled=false;afl_login_count.value='{AFL_LOGIN_COUNT}';dE('dl_afl_login_count',1,'block');"<!-- IF AFL_MAXLOGIN_BYPASS --> checked="checked" id="afl_maxlogin_bypass"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_maxlogin_bypass" value="0" onclick="afl_login_count.disabled=true;afl_login_count.value='';dE('dl_afl_login_count',1,'none');"<!-- IF not AFL_MAXLOGIN_BYPASS --> checked="checked" id="afl_maxlogin_bypass"<!-- ENDIF --> /> {L_NO}</label><br />
+				</dd>
+			</dl>
+			<dl id="dl_afl_login_count"<!-- IF not AFL_MAXLOGIN_BYPASS --> style="display:none;"<!-- ENDIF -->>
+				<dt><label for="afl_login_count"><span style="color: red">/!\</span>{L_AFL_LOGIN_COUNT}:</label><br />{L_AFL_LOGIN_COUNT_EXPLAIN}</dt>
+				<dd><input class="text small" style="text-align: right;" type="text" id="afl_login_count" name="afl_login_count" onkeypress="return numbersonly(this, event)" value="<!-- IF AFL_MAXLOGIN_BYPASS -->{AFL_LOGIN_COUNT}<!-- ENDIF -->" maxlength="2" size="2"<!-- IF not AFL_MAXLOGIN_BYPASS --> disabled="disabled" style="background-color: lightgrey; text-decoration:line-through;"<!-- ENDIF --> />&nbsp;&nbsp;{L_AFL_LOGIN_COUNT_TRY}</dd>
+			</dl>
+		</fieldset>
+		<fieldset>
+			<legend>{L_AFL_SUCCESS_SETTINGS}</legend>
+			<dl>
+				<dt><label for="afl_ucp_success">{L_AFL_UCP_SUCCESS}<span style="color: red">**</span>:</label><br />{L_AFL_UCP_SUCCESS_EXPLAIN}<br />{L_AFL_SETTINGS_CUSTOMIZABLE}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_ucp_success" value="1"<!-- IF AFL_UCP_SUCCESS and not (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_ucp_success"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_ucp_success" value="0"<!-- IF not AFL_UCP_SUCCESS or (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT)--> checked="checked" id="afl_ucp_success"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label><br />
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_acp_success">{L_AFL_ACP_SUCCESS_F}<span style="color: red">*</span>:</label><br />{L_AFL_ACP_SUCCESS_F_EXPLAIN}<br />{L_AFL_GROUPS_INCLUDED}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_acp_success" value="1"<!-- IF AFL_ACP_SUCCESS and not (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_acp_success"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_acp_success" value="0"<!-- IF not AFL_ACP_SUCCESS or (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_acp_success"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label>
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_success_topics">{L_AFL_TOPIC_ALERT}:</label><br />{L_AFL_TOPIC_ALERT_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_success_topics" onclick="afl_topic_alert(1)" value="1"<!-- IF AFL_SUCCESS_TOPICS --> checked="checked" id="afl_success_topics"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_success_topics" onclick="afl_topic_alert(0)" value="0"<!-- IF not AFL_SUCCESS_TOPICS --> checked="checked" id="afl_success_topics"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="afl_force_alert_succ">{L_AFL_UCP_SETTINGS_SUCC}<span style="color: red">*</span>:</label><br />{L_AFL_UCP_SETTINGS_SUCC_EXPLAIN}</dt>
+				<dd>
+					<label><input type="radio" class="radio" name="afl_force_alert_succ" value="1" onclick="return afl_alert('afl_ucp_success', afl_ucp_success)"<!-- IF AFL_FORCE_ALERT_SUCC and not (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_force_alert_succ"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="afl_force_alert_succ" value="0"<!-- IF not AFL_FORCE_ALERT_SUCC or (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> checked="checked" id="afl_force_alert_succ"<!-- ENDIF --><!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled"<!-- ENDIF --> /> {L_NO}</label><br />
+					<label><input type="checkbox" class="radio" name="afl_force_all_success" id="afl_force_all_success"<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --> disabled="disabled" style="background-color: lightgrey; text-decoration:line-through;"<!-- ELSE --> onclick="return afl_alert('afl_force_all_success', afl_force_all_success)"<!-- ENDIF --> /> {L_AFL_UCP_SUCCESS_CHECKB}</label>
+					<!-- IF (AFL_MAIL_PHPBB or not AFL_MAIL_ALERT) --><br /><span style="color:red">{L_AFL_EMAIL_ERROR}</span><!-- ENDIF -->
+				</dd>
+			</dl>
+		</fieldset>
+		<fieldset style="text-align: center;">
+			<legend>{L_SUBMIT}</legend>
+			{S_HIDDEN_FIELDS}
+			<input class="button1" type="submit" id="submit" name="update" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+			{S_FORM_TOKEN}
+		</fieldset>
+		<fieldset>
+			<legend>{L_AFL_ACP_LEGEND}</legend>
+			<p><span style="color: red">*</span> {L_AFL_ACP_LEGEND1}</p>
+			<p><span style="color: red">**</span> {L_AFL_ACP_LEGEND2}</p>
+			<p><span style="color: red">/!\</span> {L_AFL_ACP_LDAP}</p>
+		</fieldset>
+	</form>
+<!-- ELSEIF QTE_ADDON -->
+<form id="afl_settings" method="post" action="{U_ACTION}">
+	<fieldset>	
+		<dl>
+			<dt><label>{L_QTE_ATTRIBUTES}:</label></dt>
+			<dd>
+				<select name="afl_addon_qte_id" style="max-width:200px;">
+					<option value="<!-- IF S_QTE_REMOVE -->-1<!-- ELSE -->0" disabled="disabled<!-- ENDIF -->" style="padding-left:0px; font-weight:bold;<!-- IF S_QTE_EMPTY --> color:#808080;<!-- ENDIF -->">{L_QTE_SELECT}</option>
+					<!-- BEGIN row -->
+					<option value="{row.QTE_ID}"{row.QTE_COLOUR}<!-- IF row.IS_SELECTED --> selected="selected"<!-- ENDIF -->>{row.QTE_NAME}<!-- IF row.S_QTE_DESC --> [{row.QTE_DESC}]<!-- ENDIF --></option>
+					<!-- END row -->
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+	<fieldset style="text-align: center;">
+		<legend>{L_SUBMIT}</legend>
+		{S_HIDDEN_FIELDS}
+		<input class="button1" type="submit" id="submit" name="update_addons" value="{L_SUBMIT}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		{S_FORM_TOKEN}
+	</fieldset>	
+</form>
+<!-- ENDIF -->
+<div style="text-align:center;padding-top:15px;"><span style="font-size:0.90em;"><em>{ERRORS_VERSION}</em></span></div>
+<script type="text/javascript">
+// <![CDATA[
+function afl_select_multiple(id,type) 
+{
+	var aSelect = document.getElementById(id);
+	var aSelectLen = aSelect.length;
+	for(i = 0; i < aSelectLen; i++) 
+	{
+		aSelect.options[i].selected = type;
+	}
+}
+function afl_topic_alert(click)
+{
+	//tric for check if our two setting "keep trace in topic" are disabled, hide these setting so ;)
+	for (index=0; index < document.getElementById('afl_settings').afl_success_topics.length; index++)
+	{
+		if (document.getElementById('afl_settings').afl_success_topics[index].checked)
+		{
+			var afl_s = document.getElementById('afl_settings').afl_success_topics[index].value;
+			break;
+		}
+	}
+	for (index=0; index < document.getElementById('afl_settings').afl_fail_topics.length; index++)
+	{
+		if (document.getElementById('afl_settings').afl_fail_topics[index].checked)
+		{
+			var afl_f = document.getElementById('afl_settings').afl_fail_topics[index].value;
+			break;
+		}
+	}
+	if (( afl_s == 0 ) && (afl_f == 0))
+	{
+		dE('fd_topic_setting', 1, 'none');
+	}
+	if (click)
+	{
+		dE('fd_topic_setting', 1, 'block');
+		location.href='#fd_topic_setting';
+	}
+}
+function afl_alert(textalert, Aol_ID)
+{
+	switch(textalert)
+	{
+		case'afl_force_all':
+			showalert = '{L_AFL_UCP_FORCE_ALL_POPUP}';
+		break;
+
+		case'afl_alert_founder_ucp':
+			showalert = '{L_AFL_UCP_FAIL_POPUP}';
+		break;
+
+		case'afl_ucp_success':
+			showalert = '{L_AFL_UCP_SUCCESS_POPUP}';
+		break;
+
+		case'afl_force_all_success':
+			showalert = '{L_AFL_UCP_FORCE_ALL_SUCCESS_POPUP}';
+		break;
+
+		case'afl_stats_reset':
+			showalert = '{L_AFL_STATS_RESET_POPUP}';
+		break;
+
+		default:
+			showalert = "";
+		break;
+	}
+	//If checkbox is checked and we want uncheck it, don't show popup please :)
+	if (Aol_ID.checked == false)
+	{
+		//End now and return true...
+		return true;
+	}
+	if(confirm(showalert))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+function hide_poster_search()
+{
+	if (afl_poster_owner.checked == false)
+	{
+		dE('dd_afl_poster_link', 1, 'block');
+		dE('dd_afl_poster_username', 1, 'block');
+		dE('afl_span_poster_info', 1, 'none');
+	}
+	else
+	{
+		dE('dd_afl_poster_link', 1, 'none');
+		dE('dd_afl_poster_username', 1, 'none');
+		dE('afl_span_poster_info', 1, 'inline');
+	}
+}
+function sendmy_ip()
+{
+	var myip
+	document.getElementById("afl_exclude_ip").value += (document.getElementById("afl_exclude_ip").value != '') ? myip= '\n' + '{AFL_USER_IP}' : myip='{AFL_USER_IP}';
+}
+function sendmy_username()
+{
+	var myip
+	document.getElementById("afl_users_include").value += (document.getElementById("afl_users_include").value != '') ? myip= '\n' + '{AFL_USERNAME}' : myip='{AFL_USERNAME}';
+}
+function numbersonly(myfield, e)
+{
+	var key;
+	var keychar;
+
+	if (window.event)
+	{
+	   key = window.event.keyCode;
+	}
+	else if ( e )
+	{
+	   key = e.which;
+	}
+	else
+	{
+		return true;
+	}
+	keychar = String.fromCharCode(key);
+
+	// control keys
+	if ( (key==null) || (key==0) || (key==8) || (key==9) || (key==13) || (key==27) )
+	{
+	   return true;
+	}
+	// numbers
+	else if ( (('0123456789').indexOf(keychar) > -1) )
+	{
+	   return true;
+	}
+	else
+	{
+	   return false;
+	}
+
+}
+// ]]>
+</script>
+<!-- INCLUDE overall_footer.html -->

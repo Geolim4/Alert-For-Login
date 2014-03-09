@@ -1,0 +1,15 @@
+Subject: Failed login to your Administration "{SITENAME}"!
+
+Hello {USERNAME},
+
+We've recorded some failed logins to the Administration Panel on "{SITENAME}" from account {ATTEMPT_USERNAME} with IP {ATTEMPT_IP}.
+
+We recommend you to check your board's integrity and check if this Administator's IP match with his previous IP!!
+
+######More information about these attempts:######
+IP Details: {IP_LOCATION}
+HTTP user agent: "{ATTEMPT_BROWSER}"
+Time(local): {LOGGED_IN_TIME}
+###########################################################
+
+{EMAIL_SIG}

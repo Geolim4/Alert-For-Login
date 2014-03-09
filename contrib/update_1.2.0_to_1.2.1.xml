@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
+	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (phpBB version)"/>
+		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
+		<title lang="en"><![CDATA[Alert For Login (Update from 1.2.0)]]></title>
+		<title lang="fr"><![CDATA[Alerte de connexions (Mise à jour de puis la version 1.2.0)]]></title>
+		<description lang="en"><![CDATA[This mod will allow user to receive a mail and/or pm when a success or fail login was make to their account]]></description>
+		<description lang="fr"><![CDATA[Ce mods va autoriser les utilisateurs a recevoir un mail et/ou un mp lors de connexions réussies ou échoués à leur compte.]]></description>
+		<author-notes lang="en"><![CDATA[This MOD actually support only auth type DB !!]]></author-notes>
+		<author-notes lang="fr"><![CDATA[Ce Mod ne supporte actuellement que l'authentification par DB !!]]></author-notes>
+		<author-group>
+			<author>
+				<realname><![CDATA[Georges.L]]></realname>
+				<username><![CDATA[geolim4]]></username>
+				<homepage><![CDATA[http://geolim4.com]]></homepage>
+				<email><![CDATA[contact@geolim4.com]]></email>
+			</author>
+		</author-group>
+		<mod-version>1.2.1</mod-version>
+		<installation>
+			<level>easy</level>
+			<time>600</time>
+			<target-version>3.0.11</target-version>
+		</installation>
+		<link-group>
+			<link type="language" href="./languages/fr.xml" lang="en">French Translation</link>
+			<link type="language" href="./languages/fr.xml" lang="fr">Traduction Française</link>
+			<link type="parent" href="./../install_mod.xml" lang="fr">Fichier d'installation</link>
+			<link type="parent" href="./../install_mod.xml" lang="en">Install file</link>
+		</link-group>
+	</header>
+	<action-group>
+		<copy>
+			<file from="root/adm/style/acp_alert_for_login.html" to="adm/style/acp_alert_for_login.html"/>
+			<file from="root/adm/style/acp_users_prefs_afl.html" to="adm/style/acp_users_prefs_afl.html"/>
+			<file from="root/includes/function_alert_for_login.php" to="includes/function_alert_for_login.php"/>
+			<file from="root/includes/acp/acp_alert_for_login.php" to="includes/acp/acp_alert_for_login.php"/>
+			<file from="root/includes/acp/info/acp_alert_for_login.php" to="includes/acp/info/acp_alert_for_login.php"/>
+			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*"/>
+			<file from="root/language/en/email/*.*" to="language/en/email/*.*"/>
+			<file from="root/images/afl.png" to="images/afl.png"/>
+			<file from="root/styles/prosilver/template/ucp_prefs_afl.html" to="styles/prosilver/template/ucp_prefs_afl.html"/>
+			<file from="root/umil/*.*" to="umil/*.*"/>
+			<file from="root/afl_install.php" to="afl_install.php"/>
+		</copy>
+		<open src="/styles/prosilver/template/login_body.html">
+			<edit>
+				<find><![CDATA[		<dl>
+			<dt>&nbsp;</dt>
+			<dd>{S_HIDDEN_FIELDS}<input type="submit" name="login" tabindex="6" value="{L_LOGIN}" class="button1" /></dd>
+		</dl>]]></find>
+				<action type="after-add"><![CDATA[		{S_AFL_SECURED}]]></action>
+			</edit>
+		</open>
+		<open src="includes/auth/auth_db.php">
+			<edit>
+				<find><![CDATA[//BEGIN---MOD Alert For Login
+	//Here we get more data for our Mod...
+	if (!defined('AFL_EXCLUDE_IPS_TABLE'))
+	{
+		set_config('afl_mod_enabled', 0, false);//No const? Die !
+	}
+	if (isset($config['afl_mod_enabled']) && $config['afl_mod_enabled'])
+	{
+		if(!class_exists('alert_for_login')) //Check class exist
+		{
+			global $phpbb_root_path, $phpEx;
+			include($phpbb_root_path . 'includes/function_alert_for_login.' . $phpEx);
+		}
+		if ($alert_for_login->afl_get_excludes_ip($ip))
+		{
+			$sql = str_replace('user_login_attempts', 'user_dateformat, user_login_attempts, user_lang, user_afl_success, user_afl_fail, user_afl_limit', $sql);
+		}
+		else
+		{
+			$config['afl_mod_enabled'] = 0;
+		}
+
+	}
+	//END---MOD Alert For Login]]></find>
+				<action type="replace-with"><![CDATA[	//BEGIN---MOD Alert For Login
+	//Here we get more data for our Mod...
+	if (!defined('AFL_EXCLUDE_IPS_TABLE'))
+	{
+		set_config('afl_mod_enabled', 0, false);//No const? Die !
+	}
+	if (isset($config['afl_mod_enabled']) && $config['afl_mod_enabled'])
+	{
+		global $afl;
+		//it look weird i know, but i've see in some case some conflict with other mod.
+		//avoid any notice and warning !!
+		//this why @ operator will be used later
+		if ( !is_object($afl) )
+		{
+			//For now it's the best solution :sad:
+			$config['afl_mod_enabled'] = 0;
+		}
+		if ( isset($afl) && @$afl->afl_get_excludes_ip($ip) )
+		{
+			$sql = str_replace('user_login_attempts', 'group_id, user_colour, user_dateformat, user_login_attempts, user_lang, user_afl_success, user_afl_fail, user_afl_limit', $sql);
+		}
+		else
+		{
+			//this why we'll pass $config as an arg below...
+			$config['afl_mod_enabled'] = 0;
+		}
+
+	}
+	//END---MOD Alert For Login]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	//BEGIN---MOD Alert For Login
+	if ( $afl->afl_fail_pass($password, $row, $config) )//If password are good but not captcha no need to sent alert...
+	{
+		defined('ADMIN_START') ? $afl->alert_fail_login_acp($attempt_data, $row, $password) : $afl->alert_fail_login($attempt_data, $row, $password);
+	}
+	//END---MOD Alert For Login]]></find>
+				<action type="replace-with"><![CDATA[	//BEGIN---MOD Alert For Login
+	if ( isset($afl) && @$afl->afl_fail_pass($password, $row, $config) )//If password are good but not captcha no need to sent alert...
+	{
+		defined('ADMIN_START') ? $afl->alert_fail_login_acp($attempt_data, $row, $password) : $afl->alert_fail_login($attempt_data, $row, $password);
+	}
+	//END---MOD Alert For Login]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		//BEGIN---MOD Alert For Login
+		if ( $afl->afl_captcha_pass($password, $row, $config) )
+		{
+			defined('ADMIN_START') ? $afl->alert_fail_login_acp($attempt_data, $row, $password) : $afl->alert_fail_login($attempt_data, $row, $password);
+		}
+		//END---MOD Alert For Login]]></find>
+				<action type="replace-with"><![CDATA[		//BEGIN---MOD Alert For Login
+		//Protect with @ fuc#=~$ Imcompatible Mods
+		if ( isset($afl) && @$afl->afl_captcha_pass($password, $row, $config) )
+		{
+			defined('ADMIN_START') ? $afl->alert_fail_login_acp($attempt_data, $row, $password) : $afl->alert_fail_login($attempt_data, $row, $password);
+		}
+		//END---MOD Alert For Login]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[	//BEGIN---MOD Alert For Login
+		if ( $afl->afl_success_pass($row, $config) )
+		{
+			defined('ADMIN_START') ? $afl->alert_success_login_acp($row, $browser, $attempt_data) : $afl->alert_success_login($row, $browser, $attempt_data);
+		}
+	//END---MOD Alert For Login]]></find>
+				<action type="replace-with"><![CDATA[	//BEGIN---MOD Alert For Login
+	//Protect with @ fuc#=~$ Imcompatible Mods	
+		if ( isset($afl) && @$afl->afl_success_pass($row, $config) )
+		{
+			defined('ADMIN_START') ? $afl->alert_success_login_acp($row, $browser, $attempt_data) : $afl->alert_success_login($row, $browser, $attempt_data);
+		}
+	//END---MOD Alert For Login]]></action>
+			</edit>
+		</open>
+		<php-installer><![CDATA[afl_install.php]]></php-installer>
+		<diy-instructions lang="en"><![CDATA[Clear your cache]]></diy-instructions>
+		<diy-instructions lang="fr"><![CDATA[Videz votre cache.]]></diy-instructions>
+	</action-group>
+</mod>
